@@ -1,15 +1,15 @@
 @echo off
 
-title Uncanny Windows Automatic Configuration Script
+title Uncanny Windows Configuration Script
 
 :entry
 
 cls
 echo.
 echo.
-echo ==========================================================================
-echo               Uncanny Windows Automatic Congifuration Script
-echo ==========================================================================
+echo =======================================================================
+echo               Uncanny Windows Congifuration Script
+echo =======================================================================
 echo.
 echo.
 echo.
@@ -41,5 +41,12 @@ echo.
 echo All Packages Installed Succesfully
 echo.
 echo.
+echo Installing Android USB Drivers...
+echo.
+pnputil /add-driver "%~dp0Driver\android_winusb.inf" /subdirs /install
+echo.
+echo.
+echo Install Completed. Exiting...
+timeout /t 5 /nobreak
 
-pause
+exit
