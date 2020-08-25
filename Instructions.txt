@@ -1,0 +1,15 @@
+===============================================
+   Uncanny Windows Configuration Script 0.1
+===============================================
+
+Disclaimer: I'm not responsible for any damage occuring to your device or dat from the use of this software.
+Please proceed at your own risk.
+
+Important: Downloading and installing applications would require a working internet connection and it would consume a large amount of data.
+Please make sure you have a working connection and sufficient data before proceeding.
+
+Instructions:
+
+1. Extract the zip to a folder.
+2. Run the file named "RunMe".
+3. Done
