@@ -1,4 +1,4 @@
-# Windows Automatic Configuration Scripts
+# Uncanny Windows Configuration Script
 
 Disclaimer: I'm not responsible for any damage occuring to your device or dat from the use of this software.
 Please proceed at your own risk.
