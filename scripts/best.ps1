@@ -1,0 +1,2 @@
+choco feature enable -n allowGlobalConfirmation
+choco install adobereader android-sdk anydesk audacity darktable directx everything ffmpeg firefox gimp git lame microsoft-windows-terminal musicbee notepadplusplus powertoys qbittorrent rufus shotcut signal telegram vcredist-all vlc vscode whatsapp winrar xdm youtube-dl
