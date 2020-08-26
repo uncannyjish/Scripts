@@ -65,7 +65,8 @@ goto skip
 
 :install
 echo.
-echo What do you want to do?
+echo.
+echo Select Your Package
 echo.
 echo.
 echo 1] Basic
@@ -88,11 +89,11 @@ if /i '%choice%' == '2' (
 	set package=best
 	goto proc
 )
-if /i '%choice%' == '3' goto (
+if /i '%choice%' == '3' (
 	set package=max
 	goto proc
 )
-if /i '%choice%' == '4' goto end
+if /i '%choice%' == '4' goto skip
 
 echo.
 echo.
@@ -109,7 +110,7 @@ timeout /t 5 /nobreak
 start /wait powershell.exe -ExecutionPolicy Bypass -WindowStyle Maximized -File "%~dp0scripts\update.ps1" -Verb RunAs
 echo.
 echo Update Completed. Returning to Main Menu...
-/timeout /t 5 /nobreak
+timeout /t 5 /nobreak
 goto skip
 
 
@@ -139,4 +140,5 @@ echo Installation Complete. Returning to Main Menu...
 timeout /t 5 /nobreak
 cls
 goto skip
-exit
+
+pause
