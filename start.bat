@@ -3,6 +3,7 @@
 if not "%1" == "max" start /MAX cmd /c %0 max & exit/b
 
 title Uncanny Windows Configuration Script
+
 set flag=0
 
 :entry
@@ -10,7 +11,7 @@ cls
 echo.
 echo.
 echo ===========================================================================================
-echo                          Uncanny Windows Congifuration Script
+echo                           Uncanny Windows Congifuration Script
 echo ===========================================================================================
 
 if /i '%flag%' == '1' goto skip
@@ -24,7 +25,7 @@ echo Detecting System Status... (If you're low on data, please exit now)
 timeout /t 5 /nobreak
 echo.
 echo.
-echo Installing the necessary packages
+echo Installing the necessary packages...
 echo.
 echo.
 powershell -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command " [System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
@@ -37,6 +38,7 @@ set flag=1
 goto entry
 
 :skip
+echo.
 echo.
 echo What do you want to do?
 echo.
