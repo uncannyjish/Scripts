@@ -1,5 +1,51 @@
 @echo off
 
+::::::::::::::::::::::::::::::::::::::::::::
+:: Automatically check & get admin rights V2
+::::::::::::::::::::::::::::::::::::::::::::
+
+CLS
+ECHO.
+ECHO =============================
+ECHO Running Admin shell
+ECHO =============================
+
+:init
+setlocal DisableDelayedExpansion
+set "batchPath=%~0"
+for %%k in (%0) do set batchName=%%~nk
+set "vbsGetPrivileges=%temp%\OEgetPriv_%batchName%.vbs"
+setlocal EnableDelayedExpansion
+
+:checkPrivileges
+NET FILE 1>NUL 2>NUL
+if '%errorlevel%' == '0' ( goto gotPrivileges ) else ( goto getPrivileges )
+
+:getPrivileges
+if '%1'=='ELEV' (echo ELEV & shift /1 & goto gotPrivileges)
+ECHO.
+ECHO **************************************
+ECHO Invoking UAC for Privilege Escalation
+ECHO **************************************
+
+ECHO Set UAC = CreateObject^("Shell.Application"^) > "%vbsGetPrivileges%"
+ECHO args = "ELEV " >> "%vbsGetPrivileges%"
+ECHO For Each strArg in WScript.Arguments >> "%vbsGetPrivileges%"
+ECHO args = args ^& strArg ^& " "  >> "%vbsGetPrivileges%"
+ECHO Next >> "%vbsGetPrivileges%"
+ECHO UAC.ShellExecute "!batchPath!", args, "", "runas", 1 >> "%vbsGetPrivileges%"
+"%SystemRoot%\System32\WScript.exe" "%vbsGetPrivileges%" %*
+exit /B
+
+:gotPrivileges
+setlocal & pushd .
+cd /d %~dp0
+if '%1'=='ELEV' (del "%vbsGetPrivileges%" 1>nul 2>nul  &  shift /1)
+
+::::::::::::::::::::::::::::
+::START
+::::::::::::::::::::::::::::
+
 if not "%1" == "max" start /MAX cmd /c %0 max & exit/b
 
 title Uncanny Windows Configuration Script
@@ -22,7 +68,7 @@ echo One Script that does it all.
 echo.
 echo.
 echo Detecting System Status... (If you're low on data, please exit now)
-timeout /t 5 /nobreak
+timeout /t 3 /nobreak >nul
 echo.
 echo.
 echo Installing the necessary packages...
@@ -33,7 +79,7 @@ echo.
 echo.
 echo Configuring Chocolatey...
 echo.
-timeout /t 5 /nobreak
+timeout /t 3 /nobreak >nul
 set flag=1
 goto entry
 
@@ -106,11 +152,11 @@ echo.
 echo.
 echo Proceeding with Update...
 echo.
-timeout /t 5 /nobreak
+timeout /t 3 /nobreak >nul
 start /wait powershell.exe -ExecutionPolicy Bypass -WindowStyle Maximized -File "%~dp0scripts\update.ps1" -Verb RunAs
 echo.
 echo Update Completed. Returning to Main Menu...
-timeout /t 5 /nobreak
+timeout /t 3 /nobreak >nul
 goto skip
 
 
@@ -119,13 +165,13 @@ echo.
 echo.
 echo Proceeding with Package Installation...
 echo.
-start /wait powershell.exe -ExecutionPolicy RemoteSigned -WindowStyle Maximized -File "%~dp0scripts\scoop-install.ps1" -Verb RunAs
+start /wait powershell.exe -WindowStyle Maximized -File "%~dp0scripts\scoop-install.ps1" -Verb RunAs
 start /wait powershell.exe -ExecutionPolicy Bypass -WindowStyle Maximized -File "%~dp0scripts\scoop-packages.ps1" -Verb RunAs
 start /wait powershell.exe -ExecutionPolicy Bypass -WindowStyle Maximized -File "%~dp0scripts\%package%.ps1" -Verb RunAs
 echo.
 echo.
 echo Configuring Packages...
-timeout /t 5 /nobreak
+timeout /t 3 /nobreak
 echo.
 echo.
 echo All Packages Installed Succesfully...
@@ -135,10 +181,13 @@ echo Installing Android USB Drivers...
 echo.
 pnputil /add-driver "%~dp0Driver\android_winusb.inf" /subdirs /install
 echo.
+echo Installing ADB System-Wide...
+md "C:\Android\adb-fastboot"
+copy "%~dp0adb-fastboot" "C:\Android\adb-fastboot"
+setx /M path "%path%;C:\Android\adb-fastboot"
 echo.
 echo Installation Complete. Returning to Main Menu...
-timeout /t 5 /nobreak
-cls
-goto skip
+timeout /t 3 /nobreak >nul
+goto entry
 
 pause

@@ -17,5 +17,5 @@ Softwares Installation List: <https://telegra.ph/UWC-Installation-List-08-25>
 Instructions:
 
 1. Extract the zip to a folder.
-2. Run the file named "RunMe".
+2. Run the file named "Start".
 3. Done

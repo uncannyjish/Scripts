@@ -1,5 +1,5 @@
 ===============================================
-   Uncanny Windows Configuration Script 0.1
+   Uncanny Windows Configuration Script 0.3
 ===============================================
 
 Disclaimer: I'm not responsible for any damage occuring to your device or dat from the use of this software.
@@ -13,5 +13,5 @@ Softwares Installation List: <https://telegra.ph/UWC-Installation-List-08-25>
 Instructions:
 
 1. Extract the zip to a seperate folder.
-2. Run the file named "RunMe".
+2. Run the file named "Start".
 3. Done
