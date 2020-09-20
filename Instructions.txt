@@ -1,5 +1,5 @@
 ===============================================
-   Uncanny Windows Configuration Script 0.3
+   Uncanny Windows Configuration Script 3.0
 ===============================================
 
 Disclaimer: I'm not responsible for any damage occuring to your device or dat from the use of this software.
